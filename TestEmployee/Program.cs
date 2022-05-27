@@ -9,9 +9,10 @@ class Programm
         //каждый контроллер прикреплен к отделу и содержащий процент успешно выполненных задач(возможно не лучшее св-во тк ни к чему не привязано) и фио управляющего
         //директор обособлен от отделов и содержит имя компании
 
+        //создаем условную компанию
         company.AddDepartment(new Department("отдел по набору кадров", new DepartmentLead("Сидоров", "Даниил", "Эдуардович", new DateOnly(1999, 12, 30), Gender.Мужской)));
         company.AddDepartment(new Department("отдел по управлению кадрами", new DepartmentLead("Иванов", "Иван", "Иванович", new DateOnly(1966, 12, 22), Gender.Мужской)));
-
+        
         var dep = company.GetDepartment("отдел по набору кадров");
         dep.AddEmployee(new Controller("Девятаев", "Илья", "Александрович", new DateOnly(1999, 12, 30), Gender.Мужской, dep.DepartmentLead.GetFullName()));
         dep.AddEmployee(new Worker("Иванов", "Евгений", "Юрьевич", new DateOnly(1999, 12, 30), Gender.Мужской, dep.DepartmentLead.GetFullName()));
@@ -106,7 +107,7 @@ class Programm
 
         if (employee != null)
         {
-            Console.WriteLine($"Найден сотрудник: {employee}\nНа какую должность меняем?");
+            Console.WriteLine($"Найден сотрудник: {employee}\nНа какую должность меняем (рабочий, контроллер, руководитель отдела)?");
             var position = Console.ReadLine();
             
             department.UpdateEmployeePosition(employee, position);

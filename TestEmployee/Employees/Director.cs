@@ -6,4 +6,8 @@
     {
         Position = Roles.Director;
     }
+    public override string ToString()
+    {
+        return $"{Position} || {FirstName} {LastName} {MiddleName}, дата рождения: {Birthday}, пол: {Gender}, директор компании {CompanyName}";
+    }
 }

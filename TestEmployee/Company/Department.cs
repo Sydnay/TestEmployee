@@ -28,6 +28,24 @@
 
         Employees.Add(departmentLead);
     }
+    public void SwitchLead(Human lead)
+    {
+        DeleteEmployee(DepartmentLead.FirstName, DepartmentLead.LastName);
+        DeleteEmployee(lead.FirstName, lead.LastName);
+        foreach (var human in Employees)
+        {
+            var worker = human as Worker;
+            if (worker != null)
+                worker.LeadFullName = $"{lead.FirstName} {lead.LastName} {lead.MiddleName}";
+
+            var controller = human as Controller;
+            if (controller != null)
+                controller.LeadFullName = $"{lead.FirstName} {lead.LastName} {lead.MiddleName}";
+        }
+        var depLead = new DepartmentLead(lead.FirstName, lead.LastName, lead.MiddleName, lead.Birthday, lead.Gender);
+        depLead.DepartmentName = Name;
+        Employees.Add(depLead);
+    }
 
     public Human GetEmployee(string name, string surname)
     {
@@ -51,19 +69,7 @@
                 break;
 
             case Roles.DepartmentLead:
-                DeleteEmployee(DepartmentLead.FirstName, DepartmentLead.LastName);
-                DeleteEmployee(employee.FirstName, employee.LastName);
-                foreach (var human in Employees)
-                {
-                    var worker = human as Worker;
-                    if (worker != null)
-                        worker.LeadFullName = $"{employee.FirstName} {employee.LastName} {employee.MiddleName}";
-
-                    var controller = human as Controller;
-                    if (controller != null)
-                        controller.LeadFullName = $"{employee.FirstName} {employee.LastName} {employee.MiddleName}";
-                }
-                Employees.Add(new DepartmentLead(employee.FirstName, employee.LastName, employee.MiddleName, employee.Birthday, employee.Gender));
+                SwitchLead(employee);
                 break;
 
             default:
